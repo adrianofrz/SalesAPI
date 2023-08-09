@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SalesAPI.DbModel;
 using SalesAPI.Services;
-using SalesAPI.ViewModel.Request;
 using SalesAPI.Services.Response;
+using SalesAPI.ViewModel.Request;
 
 namespace SalesAPI.Controllers
 {
