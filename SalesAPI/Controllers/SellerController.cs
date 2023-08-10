@@ -92,30 +92,25 @@ namespace SalesAPI.Controllers
                 return BadRequest(ModelState);
             }
             SellerService sellerDB = new SellerService(_context);
-            sellerDB.Cadastrar(seller);
-            //return CreatedAtAction("GetSeller", new { id = seller.Id }, seller);
+            sellerDB.Cadastrar(seller);            
             return Ok(new SellerResponse { Status = "Ok", Message = "Vendedor cadastrado!" });
         }
 
         // DELETE: api/Seller/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSeller([FromRoute] int id)
+        public IActionResult DeleteSeller([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var seller = await _context.Seller.FindAsync(id);
-            if (seller == null)
-            {
-                return NotFound();
-            }
+            SellerService sellerDB = new SellerService(_context);
+            int idDeletado =  sellerDB.Deletar(id);
+            if(idDeletado == -1)
+                return BadRequest(ModelState);
 
-            _context.Seller.Remove(seller);
-            await _context.SaveChangesAsync();
-
-            return Ok(seller);
+            return Ok(new SellerResponse { Status = "Ok", Message = "Vendedor removido"});
         }
 
         private bool SellerExists(int id)

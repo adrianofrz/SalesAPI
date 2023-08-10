@@ -29,23 +29,19 @@ namespace SalesAPI.Services
 
         public void Cadastrar([FromBody] Seller payload)
         {
-            //Seller seller = new Seller { 
-            //    Id = payload.Id, 
-            //    Name = payload.Name,
-            //    Email = payload.Email,
-            //    Date = payload.Date,
-            //    BaseSalary = payload.BaseSalary,
-            //    DepartmentId = payload.DepartmentId
-            //};
-
             _context.Seller.Add(payload);
-            _context.SaveChanges();
-            //this.Resposta = _context.Seller;
+            _context.SaveChanges();            
         }
 
         public int Deletar(int id)
         {
-            throw new NotImplementedException();
+            var seller = _context.Seller.Find(id);
+            if (seller == null)
+                return -1;
+
+            _context.Remove(seller);
+            _context.SaveChanges();
+            return id;
         }
 
         public Department ListarDetalhado(int department)
