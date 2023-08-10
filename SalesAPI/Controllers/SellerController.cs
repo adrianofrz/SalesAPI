@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SalesAPI.DbModel;
+using SalesAPI.Services;
+using SalesAPI.Services.Response;
 
 namespace SalesAPI.Controllers
 {
@@ -83,17 +85,16 @@ namespace SalesAPI.Controllers
 
         // POST: api/Seller
         [HttpPost]
-        public async Task<IActionResult> PostSeller([FromBody] Seller seller)
+        public IActionResult CadastrarSeller([FromBody] Seller seller)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            _context.Seller.Add(seller);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSeller", new { id = seller.Id }, seller);
+            SellerService sellerDB = new SellerService(_context);
+            sellerDB.Cadastrar(seller);
+            //return CreatedAtAction("GetSeller", new { id = seller.Id }, seller);
+            return Ok(new SellerResponse { Status = "Ok", Message = "Vendedor cadastrado!" });
         }
 
         // DELETE: api/Seller/5
