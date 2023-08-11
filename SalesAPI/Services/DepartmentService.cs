@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SalesAPI.Services
 {
-    public class DepartmentService : IServices
+    public class DepartmentService
     {
         private readonly DbSalesContext _context;
         public DepartmentService(DbSalesContext context)
@@ -21,7 +21,7 @@ namespace SalesAPI.Services
         public int Cadastrar([FromBody] VWDepartamentBase payload)
         {
             //throw new NotImplementedException();
-            Department departmentDb = new Department { Name = payload.NomeDepartamento };
+            Department departmentDb = new Department { Name = payload.NomeDepartamento};
             _context.Department.Add(departmentDb);
             _context.SaveChanges();
 

@@ -8,7 +8,7 @@ namespace SalesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartamentController : ControllerBase
+    public class DepartamentController : ControllerBase, IApplication<VWDepartamentBase>
     {
         private DbSalesContext _context;
         public DepartamentController(DbSalesContext context)
@@ -17,26 +17,26 @@ namespace SalesAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Cadastrar([FromBody]VWDepartamentBase payload)
+        public IActionResult Cadastrar([FromBody]VWDepartamentBase payload)
         {
             DepartmentService departament = new DepartmentService(_context);
             return Ok(new DepartmentServiceResponse { Id = departament.Cadastrar(payload) });
         }
         [HttpDelete ("{departamentoId}")]
-        public ActionResult Deletar(int departamentoId)
+        public IActionResult Delete(int departamentoId)
         {
             DepartmentService departament = new DepartmentService(_context);
             DepartmentServiceResponse dsr = new DepartmentServiceResponse { Id = departament.Deletar(departamentoId) };
             return Ok(dsr);
         }
         [HttpPut("{departamentoId}")]
-        public ActionResult Atualizar(int departamentoId, [FromBody]VWDepartamentBase payload)
+        public IActionResult Atualizar(int departamentoId, [FromBody]VWDepartamentBase payload)
         {
             DepartmentService departament = new DepartmentService(_context);
             return Ok(new DepartmentServiceResponse { Nome = payload.NomeDepartamento, Id = departament.Atualizar(departamentoId,payload) });
         }
         [HttpGet (Name = "listarTodos")]
-        public ActionResult ListarTodos()
+        public IActionResult ListarTodos()
         {
             DepartmentService departments = new DepartmentService(_context);
             return Ok(departments.ListarTodos());

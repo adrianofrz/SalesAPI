@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SalesAPI.Services
 {
-    public class SellerService : IServices
+    public class SellerService
     {
         private DbSalesContext _context;
         public Seller Resposta;
@@ -33,13 +33,14 @@ namespace SalesAPI.Services
             return new SellerResponse { Status = "Ok", Message = "Cadastro atualizado!" };
         }
 
-        public void Cadastrar([FromBody] Seller payload)
+        public SellerResponse Cadastrar([FromBody] Seller payload)
         {
             bool temDado = _context.Seller.Any(bd => bd.Name == payload.Name);
             if (temDado == false)
                 return new SellerResponse { Status = "Nok", Message = "Nao consegui completar a sua solicitação! :(" };
             _context.Seller.Add(payload);
-            _context.SaveChanges();            
+            _context.SaveChanges();
+            return new SellerResponse { Status = "Ok", Message = "Cadastro efetuado!" };
         }
 
         public int Deletar(int id)
@@ -58,14 +59,9 @@ namespace SalesAPI.Services
             throw new NotImplementedException();
         }
 
-        public List<Department> ListarTodos()
+        public List<Seller> ListarTodos()
         {
-            throw new NotImplementedException();
-        }
-
-        public int Cadastrar([FromBody] VWDepartamentBase payload)
-        {
-            throw new NotImplementedException();
+            return _context.Seller.ToList();
         }
     }
 }
