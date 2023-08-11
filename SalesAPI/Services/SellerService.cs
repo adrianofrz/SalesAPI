@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using SalesAPI.DbModel;
+using SalesAPI.Services.Response;
+using SalesAPI.ViewModel.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SalesAPI.DbModel;
-using SalesAPI.ViewModel.Request;
 
 namespace SalesAPI.Services
 {
@@ -22,13 +22,22 @@ namespace SalesAPI.Services
         {
         }
 
-        public int Atualizar(int id, [FromBody] VWDepartamentBase payload)
+        public SellerResponse Atualizar(int id, Seller payload)
         {
-            throw new NotImplementedException();
+            bool temDado = _context.Seller.Any(bd => bd.Id == id);
+            if(temDado == false)
+                return new SellerResponse { Status = "Nok", Message = "Nao consegui completar a sua solicitação! :(" };
+            payload.Id = id;
+            _context.Seller.Update(payload);
+            _context.SaveChanges();
+            return new SellerResponse { Status = "Ok", Message = "Cadastro atualizado!" };
         }
 
         public void Cadastrar([FromBody] Seller payload)
         {
+            bool temDado = _context.Seller.Any(bd => bd.Name == payload.Name);
+            if (temDado == false)
+                return new SellerResponse { Status = "Nok", Message = "Nao consegui completar a sua solicitação! :(" };
             _context.Seller.Add(payload);
             _context.SaveChanges();            
         }
