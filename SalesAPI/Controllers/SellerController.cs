@@ -73,10 +73,15 @@ namespace SalesAPI.Controllers
             SellerService sellerDB = new SellerService(_context);
             return Ok(sellerDB.ListarTodos());
         }
-
+        [HttpGet("{id}")]
         public ActionResult ListarDetalhado(int id)
         {
-            throw new System.NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            SellerService sellerDB = new SellerService(_context);
+            return Ok(sellerDB.ListarDetalhado(id));
         }
     }
 }

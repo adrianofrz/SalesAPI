@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SalesAPI.DbModel;
 using SalesAPI.Services.Response;
-using SalesAPI.ViewModel.Request;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,9 +52,17 @@ namespace SalesAPI.Services
             return id;
         }
 
-        public Department ListarDetalhado(int department)
+        public Seller ListarDetalhado(int sellerId)
         {
-            throw new NotImplementedException();
+            Seller seller;// = new Seller();
+            seller = _context.Seller.FirstOrDefault(vendedor => vendedor.Id == sellerId);
+
+            if (seller == null)
+            {
+                return new Seller { Id = -1, Name = "Departamento Invalido" };
+            }
+
+            return seller;
         }
 
         public List<Seller> ListarTodos()
