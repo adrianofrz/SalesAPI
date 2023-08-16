@@ -8,6 +8,7 @@ namespace SalesAPI.Services
     {
         IActionResult Delete([FromRoute] int id);
         IActionResult Atualizar([FromRoute] int id, T value);
+        [HttpGet]
         IActionResult ListarTodos();
         ActionResult ListarDetalhado(int id);
         IActionResult Cadastrar([FromBody] T value);

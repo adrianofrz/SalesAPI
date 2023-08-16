@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.AspNetCore.Mvc;
 using SalesAPI.DbModel;
 using SalesAPI.Services;
 using SalesAPI.Services.Response;
