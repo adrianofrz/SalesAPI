@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesAPI.Services
 {
@@ -19,9 +20,24 @@ namespace SalesAPI.Services
         {
         }
 
-        public List<SalesRecord> ListarTodos()
+        public List<SalesRecord> ListarTodos(DateTime? dataMin, DateTime? dataMax)
         {
-            return _context.SalesRecord.ToList();
+            List<SalesRecord> ret = new List<SalesRecord>();
+            var result = from obj in _context.SalesRecord select obj;
+            if (dataMin.HasValue)
+            {
+                result = result.Where(x => x.Date >= dataMin.Value);
+            }
+            if (dataMax.HasValue)
+            {
+                result = result.Where(x => x.Date <= dataMax.Value);
+            }
+            ret = result
+                .Include(x => x.Sellers)
+                .Include(x => x.Sellers.Department)
+                .OrderByDescending(x => x.Date)
+                .ToList();
+            return ret;
         }
     }
 }

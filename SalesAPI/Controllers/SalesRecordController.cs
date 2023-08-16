@@ -43,8 +43,11 @@ namespace SalesAPI.Controllers
         [HttpGet]
         public IActionResult ListarTodos()
         {
+            DateTime dataMin = DateTime.Parse(Request.Query["dataMinima"]);
+            DateTime dataMax = DateTime.Parse(Request.Query["dataMaxima"]);
+
             SalesRecordService sales = new SalesRecordService(_context);
-            return Ok(sales.ListarTodos());
+            return Ok(sales.ListarTodos(dataMin, dataMax));
         }
     }
 }
