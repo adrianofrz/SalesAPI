@@ -33,18 +33,18 @@ namespace SalesAPI.DbModel
             {
                 entity.HasIndex(e => e.SellersId);
 
-                entity.HasOne(d => d.Sellers)
+                /*entity.HasOne(d => d.Sellers)
                     .WithMany(p => p.SalesRecord)
-                    .HasForeignKey(d => d.SellersId);
+                    .HasForeignKey(d => d.SellersId);*/
             });
 
             modelBuilder.Entity<Seller>(entity =>
             {
                 entity.HasIndex(e => e.DepartmentId);
 
-                entity.HasOne(d => d.Department)
+                /*entity.HasOne(d => d.Department)
                     .WithMany(p => p.Seller)
-                    .HasForeignKey(d => d.DepartmentId);
+                    .HasForeignKey(d => d.DepartmentId);*/
             });
         }
     }

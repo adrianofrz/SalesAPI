@@ -7,7 +7,7 @@ namespace SalesAPI.DbModel
     {
         public Seller()
         {
-            SalesRecord = new HashSet<SalesRecord>();
+            //SalesRecord = new HashSet<SalesRecord>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace SalesAPI.DbModel
         public int DepartmentId { get; set; }
 
         public Department Department { get; set; }
-        public ICollection<SalesRecord> SalesRecord { get; set; }
+        //public ICollection<SalesRecord> SalesRecord { get; set; }
     }
 }

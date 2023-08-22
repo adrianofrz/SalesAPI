@@ -22,7 +22,7 @@ namespace SalesAPI.Services
 
         public List<SalesRecord> ListarTodos(DateTime? dataMin, DateTime? dataMax)
         {
-            List<SalesRecord> ret = new List<SalesRecord>();
+            List<SalesRecord> ret;// = new List<SalesRecord>();
             var result = from obj in _context.SalesRecord select obj;
             if (dataMin.HasValue)
             {
@@ -32,11 +32,8 @@ namespace SalesAPI.Services
             {
                 result = result.Where(x => x.Date <= dataMax.Value);
             }
-            ret = result
-                .Include(x => x.Sellers)
-                .Include(x => x.Sellers.Department)
-                .OrderByDescending(x => x.Date)
-                .ToList();
+            ret = result.Include(x => x.Sellers).Include(x => x.Sellers.Department).OrderByDescending(x => x.Date).ToList();
+            //ret = _context.SalesRecord.ToList();
             return ret;
         }
     }

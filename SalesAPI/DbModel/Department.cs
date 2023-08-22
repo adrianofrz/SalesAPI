@@ -7,12 +7,12 @@ namespace SalesAPI.DbModel
     {
         public Department()
         {
-            Seller = new HashSet<Seller>();
+            //Seller = new HashSet<Seller>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Seller> Seller { get; set; }
+       // public ICollection<Seller> Seller { get; set; }
     }
 }
