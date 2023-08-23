@@ -35,10 +35,35 @@ namespace SalesAPI.Controllers
         {
             throw new NotImplementedException();
         }
-
+        [HttpGet("{Id}")]
         public ActionResult ListarDetalhado(int id)
         {
-            throw new NotImplementedException();
+            DateTime dataMin;
+            DateTime dataMax;
+            if (DateTime.TryParse(Request.Query["dataMinima"], out dataMin))
+            {
+                // Data é válida.
+                dataMin = DateTime.Parse(Request.Query["dataMinima"]);
+            }
+            else
+            {
+                // Data é inválida.
+                dataMin = new DateTime(DateTime.Now.Year, 1, 1);
+            }
+
+            if (DateTime.TryParse(Request.Query["dataMaxima"], out dataMax))
+            {
+                // Data é válida.
+                dataMax = DateTime.Parse(Request.Query["dataMaxima"]);
+            }
+            else
+            {
+                // Data é inválida.
+                dataMax = DateTime.Now;
+            }
+
+            SalesRecordService sales = new SalesRecordService(_context);
+            return Ok(sales.ListarAgrupado(dataMin, dataMax));
         }
         
         [HttpGet]
@@ -68,10 +93,8 @@ namespace SalesAPI.Controllers
                 dataMax = DateTime.Now;
             }
 
-            SalesRecordService sales = new SalesRecordService(_context);
-            //return Ok(JsonConvert.SerializeObject(sales.ListarTodos(dataMin, dataMax)));
-            return Ok(sales.ListarTodos(dataMin, dataMax));
-            //return Ok();
+            SalesRecordService sales = new SalesRecordService(_context);            
+            return Ok(sales.ListaSimples(dataMin, dataMax));            
         }
     }
 }
