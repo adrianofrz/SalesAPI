@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace SalesAPI.Services.Response
 {
-    public class DepartmentServiceResponse : ServiceResponse
+    public class SalesRecordResponse : ServiceResponse
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesAPI.DbModel;
+using SalesAPI.Services.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,13 @@ namespace SalesAPI.Services
                 .OrderByDescending(x => x.Date)
                 .GroupBy(x => x.Sellers.Department)
                 .ToList();
+        }
+
+        public SalesRecordResponse Cadastrar(SalesRecord payload)
+        {
+            _context.SalesRecord.Add(payload);
+            _context.SaveChanges();
+            return new SalesRecordResponse { Status = "Ok", Message = "Cadastro efetuado!" };
         }
     }
 }

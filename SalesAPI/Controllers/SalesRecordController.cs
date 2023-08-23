@@ -26,9 +26,11 @@ namespace SalesAPI.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpPost]
         public IActionResult Cadastrar([FromBody] SalesRecord value)
         {
-            throw new NotImplementedException();
+            SalesRecordService sale = new SalesRecordService(_context);
+            return Ok(sale.Cadastrar(value));
         }
 
         public IActionResult Delete([FromRoute] int id)
